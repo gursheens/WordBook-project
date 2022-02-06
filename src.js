@@ -49,7 +49,7 @@ async function getWord() {
     }
 }
 
-function cardHTML(obj, bookmarks) {
+function cardHTML(obj, isBookmark) {
     return `<div class="card text-center my-4 py-4">
                 <div class="card-body">
                     <h5 class="card-title">${obj.name}</h5>
@@ -60,7 +60,7 @@ function cardHTML(obj, bookmarks) {
                                 Your browser does not support the <code>audio</code> element.
                         </audio>
                     </div>
-                    ${ bookmarks ? `<button class="btn btn-dark border border-dark mt-5" onclick="bookmarkWord(event)">remove bookmark</button>`: `<button class="btn border border-dark mt-5" onclick="bookmarkWord(event)">bookmark</button>` }
+                    ${ isBookmark ? `<button class="btn btn-dark border border-dark mt-5" onclick="bookmarkWord(event)">remove bookmark</button>`: `<button class="btn border border-dark mt-5" onclick="bookmarkWord(event)">bookmark</button>` }
                 </div>
             </div>`;
 }
