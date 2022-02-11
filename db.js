@@ -40,16 +40,25 @@ async function addWord(event) {
 
   let tx = db.transaction('Words', 'readwrite');
 
+  let transactionResult = true;
+
   try {
     await tx.objectStore('Words').add({name, phonetic, origin, audio});
   } catch(err) {
     if (err.name == 'ConstraintError') {
       alert("This Word exists already");
+      transactionResult = false;
       await addWord();
     } else {
       throw err;
     }
+  } finally {
+    if (transactionResult) {
+      event.target.innerHTML = 'remove bookmark'
+      event.target.classList.add('btn-dark');
+    }
   }
+
 }
 
 async function deleteWord(event) {
@@ -58,6 +67,10 @@ async function deleteWord(event) {
 
   let tx = db.transaction('Words', 'readwrite');
   await tx.objectStore('Words').delete(name);
+  
+  // change style
+  event.target.innerHTML = 'bookmark'
+  event.target.classList.remove('btn-dark');
   await list();
 }
 
