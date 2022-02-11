@@ -1,5 +1,9 @@
 // bind search event listener to searchbar
 document.getElementById("myInput").addEventListener("search", getWord);
+var toastElList = [].slice.call(document.querySelectorAll('.toast'))
+var toastList = toastElList.map(function(toastEl) {
+    return new bootstrap.Toast(toastEl)
+})
 
 async function getWord() {
 
@@ -103,10 +107,6 @@ function share(event) {
         message: 'test'
     };
 
-    var toastElList = [].slice.call(document.querySelectorAll('.toast'))
-    var toastList = toastElList.map(function(toastEl) {
-        return new bootstrap.Toast(toastEl)
-    })
     // these IDs from the previous steps
     emailjs.sendForm('service_qn1p39z', 'template_56hdeua', '#share-form', 'user_TaH8nxDndyLcCGT8PufSy')
         .then(function() {

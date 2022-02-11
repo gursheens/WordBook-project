@@ -44,11 +44,11 @@ async function addWord(event) {
 
   try {
     await tx.objectStore('Words').add({name, phonetic, origin, audio});
+    toastList[3].show()
   } catch(err) {
     if (err.name == 'ConstraintError') {
-      alert("This Word exists already");
+      toastList[2].show()
       transactionResult = false;
-      await addWord();
     } else {
       throw err;
     }
@@ -67,7 +67,7 @@ async function deleteWord(event) {
 
   let tx = db.transaction('Words', 'readwrite');
   await tx.objectStore('Words').delete(name);
-  
+  toastList[4].show()
   // change style
   event.target.innerHTML = 'bookmark'
   event.target.classList.remove('btn-dark');
